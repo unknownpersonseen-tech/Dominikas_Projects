@@ -1,20 +1,24 @@
 import turtle
+
 t = turtle.Turtle()
-t.width(20)
-t.shape("turtle")
-t.color("blue")
-t.right(90)
+
+figure = input("What to draw a figure (square, circle, or triangle)?")
+if figure == "square":
 t.forward(100)
-t.right(90)
-t.right(90)
-t.forward(200)
-t.right(90)
-t.right(90)
+t.left(90)
 t.forward(100)
-t.left(45)
-t.forward(130)
-t.right(90)
-t.right(90)
-t.forward(130)
-t.right(90)
-t.forward(130)
+t.left(90)
+t.forward(100)
+t.left(90)
+t.forward(100)
+t.left(90)
+if figure == "circle":
+t.circle(100)
+
+if figure == "triangle":
+t.forward(100)
+t.left(120)
+t.forward(100)
+t.left(120)
+t.forward(100)
+t.left(120)
