@@ -1,0 +1,36 @@
+import time
+
+print('Guess the saying from the emoji in the movie "House Alone" ')
+time.sleep(2)
+
+print(' 🧑 🏠 ')
+print('A. One boy in the house')
+print('C. One boy')
+print('B. One house')
+name = input("Your answer:")
+if name == "A":
+print("correct answer")
+else:
+print("incorrect answer")
+
+print('🕴🕴🏠')
+print('A. Two people')
+print('C. Two people with a house')
+print('B. Two people approaching a house')
+names = input("Your answer:")
+if names == "B":
+print("correct answer")
+else:
+print("incorrect answer") answer")
+
+print('🕴🕴➡️🏠🧽😆')
+print('A. A prank on two people in a house')
+print('C. Two people being funny in a house')
+print('B. Cleaning two people in a house')
+named = input("Your answer:")
+if named == "A":
+print("correct answer")
+else:
+print("incorrect answer")
+
+print("Thank you for your answer and your activity")
