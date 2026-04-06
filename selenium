@@ -1,0 +1,33 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
+driver.get("http://127.0.0.1:5000/")
+time.sleep(3)
+
+login =  driver.find_element(By.NAME,  'login')
+password =  driver.find_element(By.NAME,  'password')
+button = driver.find_element(By.TAG_NAME, 'button')
+
+login.send_keys('admin')
+time.sleep(2)
+
+password.send_keys('admin')
+time.sleep(2)
+
+if password == 'admin':
+    button.click()
+    else: 
+        print('error')
+time.sleep(2)
+
+contacts = driver.find_element(By. LINK_TEXT, 'Контакты')
+if password == 'admin':
+    contacts.click()
+    else: 
+        print('error')
+time.sleep(2)
+
+contacts.send_keys("admin")
+time.sleep(2)
