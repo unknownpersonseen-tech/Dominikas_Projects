@@ -1,2 +1,2 @@
-# Riddle
-Riddle project of phyton (english version)
+#Dominikas Muravjovas
+Dominikas Muravjovas project of (english version)
