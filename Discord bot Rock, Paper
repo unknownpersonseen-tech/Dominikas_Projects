@@ -1,0 +1,17 @@
+import discord
+import random
+
+client = discord.Client()
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return     
+    if message.content == "Paper":
+        await message.channel.send("Paper, Tie")
+    if message.content == "Rock":
+        await message.channel.send("Paper, Losed")
+    if message.content == "Scicor":
+        await message.channel.send("Paper, Winned")
+    
+client.run('MTA2NTI4OTgwMjU3ODE0NTQwMQ.G4zh6B.WKKS7Zhq38ZcE72BNlTAZ2xE5f08LGSu4cAnVo')
