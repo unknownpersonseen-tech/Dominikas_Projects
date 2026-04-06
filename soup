@@ -1,0 +1,15 @@
+import time
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+driver.get("https://ru.wikipedia.org/wiki/List_country")
+soup = BeautifulSoup(driver.page_source, features="lxml")
+
+table = soup.find('table', class_='wikitable').find('tbody')
+
+for tr in table.find_all('tr'):
+    tr = tr.find_all('td')
+    print(td.get("text"))
