@@ -1,0 +1,215 @@
+import random
+
+WIDTH = 600
+HEIGHT = 450
+
+TITLE = "Космическое путешествие"
+FPS = 30
+
+# Объекты и переменные
+ship = Actor("ship", (300, 400))
+space = Actor("space")
+enemies = []
+planets = [Actor("plan1", (random.randint(0, 600), -100)), Actor("plan2", (random.randint(0, 600), -100)), Actor("plan3", (random.randint(0, 600), -100))]
+meteors = []
+bullets = [] # Save data to bullet
+mode = 'game'
+count = 0
+
+type1 = Actor("ship1", (100,200))
+type2 = Actor("ship2", (300,200))
+type3 = Actor("ship3", (500,200))
+
+# Заполнение списка врагов
+for i in range(5):
+    x = random.randint(0, 600)
+    y = random.randint(-450, -50)
+    enemy = Actor("enemy", (x, y))
+    enemy.speed = random.randint(2, 8)
+    enemies.append(enemy)
+    
+# Заполнение списка метеоритов
+for i in range(5):
+    x = random.randint(0, 600)
+    y = random.randint(-450, -50)
+    meteor = Actor("meteor", (x, y))
+    meteor.speed = random.randint(2, 10)
+    meteors.append(meteor)
+
+# Отрисовка
+def draw():
+    if mode == "menu":
+        space.draw()
+        screen.draw.text("Schoose ships", center = (300, 100), color = "white", fontsize = 36)
+        type2.draw()
+        type1.draw()
+        type3.draw()
+        
+    # Режим игры
+    if mode == 'game':
+        space.draw()
+        planets[0].draw()
+        
+        if count == 0:
+            screen.draw.text("0", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 1:
+            screen.draw.text("1", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 2:
+            screen.draw.text("2", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 3:
+            screen.draw.text("3", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 4:
+            screen.draw.text("4", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 5:
+            screen.draw.text("5", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 6:
+            screen.draw.text("6", pos = (0,0), color = "white", fontsize = 30)
+        elif count == 7:
+            screen.draw.text("7", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 8:
+            screen.draw.text("8", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 9:
+            screen.draw.text("9", pos = (0, 0), color = "white", fontsize = 30)
+        elif count == 10:
+            space.draw()
+            screen.draw.text("You winned", pos = (300, 200), color = "white", fontsize = 36)
+        
+            
+        # Отрисовка метеоритов
+        for i in range(len(meteors)):
+            meteors[i].draw()
+        ship.draw()
+        # Отрисовка врагов
+        for i in range(len(enemies)):
+            enemies[i].draw()
+            
+        for i in bullets:
+            i.draw()
+            
+    # Окно проигрыша
+    elif mode and count == 1 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 1", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 2 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 2", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 3 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 3", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 4 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 4", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 5 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 5", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 6 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 6", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 7 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 7", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 8 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 8", center = (300, 200), color = "white", fontsize = 36)
+    elif mode and count == 9 and 'end':
+        space.draw()
+        screen.draw.text("GAME OVER!", center = (300, 200), color = "white", fontsize = 36)
+    else:
+        space.draw()
+        screen.draw.text("GAME OVER! Count: 0", center = (300, 200), color = "white", fontsize = 36)
+        
+    
+# Управление
+def on_mouse_move(pos):
+    ship.pos = pos
+    
+def on_mouse_down(button,pos):
+    global mode, ship, bullets
+    if mode == "menu" and type1.collidepoint(pos):
+        ship.image = "ship1"
+        mode = "game"
+        
+    elif mode == "menu" and type2.collidepoint(pos):
+          ship.image = "ship2"
+          mode = "game"
+          
+    elif mode == "menu" and type3.collidepoint(pos):
+          ship.image = "ship3"
+          mode = "game"
+    #Shooting
+    elif mode == "game" and button == mouse.LEFT:
+        bullet = Actor("missiles")
+        bullet.pos = ship.pos
+        bullets.append(bullet)
+
+# Добавление в список нового врага
+def new_enemy():
+    x = random.randint(0, 400)
+    y = -50
+    enemy = Actor("enemy", (x, y))
+    enemy.speed = random.randint(2, 8)
+    enemies.append(enemy)
+
+# Движение врагов
+def enemy_ship():
+    for i in range(len(enemies)):
+        if enemies[i].y < 650:
+            enemies[i].y = enemies[i].y + enemies[i].speed
+        else:
+            enemies.pop(i)
+            new_enemy()
+
+# Движение планет
+def planet():
+    if planets[0].y < 550:
+            planets[0].y = planets[0].y + 1
+    else:
+        planets[0].y = -100
+        planets[0].x = random.randint(0, 600)
+        first = planets.pop(0)
+        planets.append(first)
+
+# Движение метеоритов
+def meteorites():
+    for i in range(len(meteors)):
+        if meteors[i].y < 450:
+            meteors[i].y = meteors[i].y + meteors[i].speed
+        else:
+            meteors[i].x = random.randint(0, 600)
+            meteors[i].y = -20
+            meteors[i].speed = random.randint(2, 10)
+
+# Столкновения
+def collisions():
+    global mode, count
+    for i in range(len(enemies)):
+        if ship.colliderect(enemies[i]):
+            mode = 'end'
+        for j in bullets:
+            if j.colliderect(enemies[i]):
+                count = count + 1
+                enemies.pop(i)
+                bullets.remove(j)
+                new_enemy()
+                break
+
+def update(dt):
+    global count, mode, speed
+    if mode == 'game':
+        enemy_ship()
+        collisions()
+        planet()
+        meteorites()
+        for i in bullets:
+            if i.y < 0:
+                bullets.remove(i)
+                break
+            else:
+                i.y -= 10
+                
+    elif mode == 'end' and keyboard.x:
+        mode = "game"
+        ship = Actor("ship", (300, 400))
+        space = Actor("space")
+        planets = [Actor("plan1", (random.randint(0, 600), -100)), Actor("plan2", (random.randint(0, 600), -100)), Actor("plan3", (random.randint(0, 600), -100))]
+        count = 0
