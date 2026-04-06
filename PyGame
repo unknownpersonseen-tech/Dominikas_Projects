@@ -1,0 +1,114 @@
+import random
+
+
+WIDTH = 600 # Ширина окна
+HEIGHT = 300 # Высота окна
+
+TITLE = "Инопланетный раннер" # Заголовок окна игры
+FPS = 30 # Количество кадров в секунду
+
+# Объекты
+alien = Actor('alien', (50, 240))
+fon = Actor("fon")
+box = Actor('box', (550, 265))
+bee = Actor('bee', (850, 120))
+bees = Actor('bee', (850, 185))# Пчела
+GO = Actor("GO") # картинка для проигрыша
+
+speed = 5 
+#Изменяем координату {x} у коробки и пчелы на значение {speed}
+#Как только объект скроется за картой, мы увеличиваем значения переменной speed на 1
+
+
+
+
+
+game_over = 0 #проиграли или нет(0 - не проиграли)(1 - проиграли) изменяем на 56 строке
+enemy = random.randint(1,3)
+
+
+def draw():
+    fon.draw()
+    alien.draw()
+
+    if enemy == 1:
+        box.draw()
+    elif enemy == 2:
+        bees.draw()
+    else:
+        bee.draw()
+
+    if game_over == 1:
+        GO.draw()
+        screen.draw.text("Нажмите ентер, чтобы начать игру заново", pos=(150, 150), color="white", fontsize = 24) # Добавление текста
+    
+def boxx():
+    global enemy, speed
+    if box.x > -20:
+        box.x = box.x - speed
+        box.angle = box.angle + 5
+    else:
+        box.x = WIDTH + 20
+        enemy = random.randint(1, 3)
+        speed += 1
+
+def beee():
+    global enemy, speed
+    if bee.x > - 20:
+        bee.x -= speed
+    else:
+        bee.x = WIDTH + 100
+        enemy = random.randint(1, 3)
+        speed += 1
+def beees():
+    global enemy, speed
+    if bees.x > - 20:
+        bees.x -= speed
+    else:
+        bees.x = WIDTH + 100
+        enemy = random.randint(1, 3)
+        speed += 1
+
+def update(dt):
+    global game_over, speed
+
+    #Вызвал функцию бокс
+    if enemy == 1:
+        boxx()
+    elif enemy == 2:
+        beees()
+    else:
+    #Движение пчелы
+        beee()
+        
+    # Управление
+    if (keyboard.left or keyboard.a) and alien.x > 20:
+        alien.x = alien.x - 5
+        alien.image = 'left'
+    elif (keyboard.right or keyboard.d) and alien.x < 580:
+        alien.x = alien.x + 5
+        alien.image = 'right'
+    elif keyboard.down or keyboard.s:
+        alien.image = 'duck'
+        alien.y = 250
+    else:
+        alien.image = 'alien'
+        if alien.y > 240:
+            alien.y = 240
+    
+    if game_over == 1 and keyboard.x:
+        game_over = 0 
+        alien.pos = (50, 240)
+        box.pos = (550,265)
+        bee.pos = (850, 120)
+        bees.pos = (850, 180)
+        speed = 5 
+
+    if alien.colliderect(box) or alien.colliderect(bee): # если произошло столкновение то изменяем переменную
+        game_over = 1
+        
+def on_key_down(key):
+    # Прыжок
+    if keyboard.space or keyboard.up or keyboard.w:
+        alien.y = 100
+        animate(alien, tween='bounce_end', duration=2, y=240)
