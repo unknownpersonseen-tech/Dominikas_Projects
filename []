@@ -1,0 +1,60 @@
+import random, time
+
+Mon = []
+Tue = []
+Wed = []
+Th = []
+Fr = []
+Sat = []
+Sun = []
+
+journal = [Mon, Tue, Wed, Th, Fr, Sat, Sun]
+
+for i in range(0, 7):
+    journal[i].append('нет дел')
+
+while True:
+    command = input('Write command:')
+    time.sleep(3)
+    if command == 'Вывод делa':
+        day = random.randint(0, 7)
+        if day == 1:
+            print('Monday')
+            print(Mon)
+        elif day == 2:
+            print('Tuesday')
+            print(Tue)
+        elif day == 3:
+            print('Wednesday')
+            print(Wed)
+        elif day == 4:
+            print('Thursday')
+            print(Th)
+        elif day == 5:
+            print('Friday')
+            print(Fr)
+        elif day == 6:
+            print('Saturday')
+            print(Sat)
+        elif day == 7:
+            print('Sunday')
+            print(Sun)
+    if command == 'Добавить делo':
+        time.sleep(3)
+        task = input('Какое дело хотите добавить?')
+        time.sleep(2)
+        day = random.randint(0, 7)
+        if day == 1:
+            Mon.append(task)
+        if day == 2:
+            Tue.append(task)
+        if day == 3:
+            Wed.append(task)
+        if day == 4:
+            Th.append(task)
+        if day == 5:
+            Fr.append(task)
+        if day == 6:
+            Sat.append(task)
+        if day == 7:
+            Sun.append(task)
